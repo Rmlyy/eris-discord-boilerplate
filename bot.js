@@ -14,8 +14,8 @@ bot.on('ready', () => {
 
         commands.push(cmd.name)
         if (cmd.aliases) { cmd.aliases.forEach(alias => { commandsAliases[alias] = cmd.name }) }
-        console.log(`Loaded ${commands.length} commands\nReady!`)
     })
+    console.log(`Loaded ${commands.length} commands\nReady!`)
 })
 
 bot.on('messageCreate', message => {
@@ -47,11 +47,11 @@ bot.on('messageCreate', message => {
             }
             if (cmd.permission && !perms.has(cmd.permission)) 
                 return message.channel.createMessage('You do not have permission.')
-            if (membersMap.get(message.author.id) === command) 
+            if (membersMap.get(message.author.id) === cmd.name) 
                 return message.channel.createMessage('Please wait before executing this command again.')
         
-            if (cmd.cooldown && !perms.has('administrator')) {
-                membersMap.set(message.author.id, command)
+            if (cmd.cooldown) {
+                membersMap.set(message.author.id, cmd.name)
                 setTimeout(() => { membersMap.delete(message.author.id) }, cmd.cooldown * 1000)
             }
         

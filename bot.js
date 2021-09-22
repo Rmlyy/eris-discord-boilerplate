@@ -50,7 +50,7 @@ bot.on('messageCreate', message => {
             if (membersMap.get(message.author.id) === cmd.name) 
                 return message.channel.createMessage('Please wait before executing this command again.')
         
-            if (cmd.cooldown) {
+            if (cmd.cooldown && !perms.has('administrator')) {
                 membersMap.set(message.author.id, cmd.name)
                 setTimeout(() => { membersMap.delete(message.author.id) }, cmd.cooldown * 1000)
             }

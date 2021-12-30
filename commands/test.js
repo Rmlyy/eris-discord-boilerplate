@@ -1,5 +1,6 @@
 module.exports = {
     name: 'test',
+    description: 'Just a test command',
     aliases: ['testing', 's'],
     permission: 'administrator',
     usage: '[arg 1], [arg 2]',

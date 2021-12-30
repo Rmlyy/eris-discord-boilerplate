@@ -1,6 +1,6 @@
-require('dotenv').config()
+const config = require('./config')
 const Eris = require('eris')
-const bot = new Eris(process.env.TOKEN)
+const bot = new Eris(config.prefix)
 
 const fs = require('fs')
 const commands = []
@@ -21,9 +21,9 @@ bot.on('ready', () => {
 bot.on('messageCreate', message => {
     if (message.author.bot) return
     if (message.channel.type === 1) return
-    if (!message.content.startsWith(process.env.PREFIX)) return
+    if (!message.content.startsWith(config.prefix)) return
 
-    const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g)
+    const args = message.content.slice(config.prefix.length).trim().split(/ +/g)
     const command = args.shift().toLowerCase()
     let cmd
 
@@ -42,19 +42,19 @@ bot.on('messageCreate', message => {
             let argsMsg = `You did not provide the required arguments.`
 
             if (cmd.args && args.length != cmd.args) {
-                if (cmd.usage) argsMsg+= `\nUsage: \`${cmd.usage}\``
+                if (cmd.usage) argsMsg += `\nUsage: \`${cmd.usage}\``
                 return message.channel.createMessage(argsMsg)
             }
-            if (cmd.permission && !perms.has(cmd.permission)) 
+            if (cmd.permission && !perms.has(cmd.permission))
                 return message.channel.createMessage('You do not have permission.')
-            if (membersMap.get(message.author.id) === cmd.name) 
+            if (membersMap.get(message.author.id) === cmd.name)
                 return message.channel.createMessage('Please wait before executing this command again.')
-        
+
             if (cmd.cooldown && !perms.has('administrator')) {
                 membersMap.set(message.author.id, cmd.name)
                 setTimeout(() => { membersMap.delete(message.author.id) }, cmd.cooldown * 1000)
             }
-        
+
             cmd.execute(message, args)
         }
     } catch (e) {

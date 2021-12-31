@@ -8,14 +8,16 @@ const commandsAliases = {}
 
 const membersMap = new Map()
 
-bot.on('ready', () => {
-    fs.readdirSync('./commands').forEach(command => {
-        const cmd = require(`./commands/${command}`)
+fs.readdirSync('./commands').forEach(command => {
+    const cmd = require(`./commands/${command}`)
 
-        commands.push(cmd.name)
-        if (cmd.aliases) { cmd.aliases.forEach(alias => { commandsAliases[alias] = cmd.name }) }
-    })
-    console.log(`Loaded ${commands.length} commands\nReady!`)
+    commands.push(cmd.name)
+    if (cmd.aliases) { cmd.aliases.forEach(alias => { commandsAliases[alias] = cmd.name }) }
+})
+console.log(`Loaded ${commands.length} commands`)
+
+bot.on('ready', () => {
+    console.log('Ready')
 })
 
 bot.on('messageCreate', message => {

@@ -24,7 +24,6 @@ bot.on('messageCreate', message => {
     if (message.author.bot) return
     if (message.channel.type === 1) return
     if (!message.content.startsWith(config.prefix)) return
-    if (message.content === config.prefix) return
 
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g)
     const command = args.shift().toLowerCase()
@@ -33,7 +32,7 @@ bot.on('messageCreate', message => {
     if (commands.includes(command)) cmd = require(`./commands/${command}`)
     else {
         for (const alias in commandsAliases) {
-            if (alias.includes(command)) {
+            if (alias === command) {
                 cmd = require(`./commands/${commandsAliases[alias]}`)
             } else return
         }

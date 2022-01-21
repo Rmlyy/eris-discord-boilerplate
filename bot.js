@@ -20,6 +20,10 @@ bot.on('ready', () => {
     console.log('Ready')
 })
 
+bot.on('error', error => {
+    console.error(error)
+})
+
 bot.on('messageCreate', message => {
     if (message.author.bot) return
     if (message.channel.type === 1) return

@@ -7,6 +7,6 @@
   "author": "Rmly",
   "license": "MIT",
   "dependencies": {
-    "eris": "^0.16.1"
+    "eris": "^0.17.1"
   }
 }

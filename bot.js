@@ -1,6 +1,8 @@
 const config = require('./config')
 const Eris = require('eris')
-const bot = new Eris(config.token)
+const bot = new Eris(config.token, {
+  intents: ['all'],
+})
 
 const fs = require('fs')
 const commands = []

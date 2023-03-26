@@ -67,7 +67,7 @@ bot.on('messageCreate', (message) => {
         }, cmd.cooldown * 1000)
       }
 
-      cmd.execute(message, args)
+      cmd.execute(message, args, bot)
     } catch (e) {
       console.error(e)
       message.channel.createMessage('There was an error trying to execute this command.')

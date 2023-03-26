@@ -6,9 +6,9 @@ module.exports = {
   description: 'Shows a list of commands',
   cooldown: 5,
 
-  execute(message, args) {
+  execute(message) {
     let msg = ''
-    fs.readdirSync('./commands').forEach(file => {
+    fs.readdirSync('./commands').forEach((file) => {
       const command = require(`../commands/${file}`)
       const name = command.name
       const description = command.description
@@ -16,5 +16,5 @@ module.exports = {
       msg += `\n**${prefix}${name} ${usage ? `${usage}` : ''}** ${description ? `- ${description}` : ''}`
     })
     message.channel.createMessage(msg)
-  }
+  },
 }

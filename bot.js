@@ -42,7 +42,7 @@ bot.on('messageCreate', message => {
     if (commands.includes(command)) cmd = require(`./commands/${command}`)
     else if (commandsAliases[command]) {
         cmd = require(`./commands/${commandsAliases[command]}`)
-    }
+    } else return
 
     try {
         if (cmd) {
